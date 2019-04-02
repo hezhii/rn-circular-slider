@@ -7,17 +7,28 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 
 import CircularSlider from 'rn-circular-slider'
 
 console.disableYellowBox = true
 
 export default class App extends Component {
+  state = {
+    value: 0
+  }
+
   render() {
+    const { value } = this.state
     return (
       <View style={styles.container}>
-        <CircularSlider />
+        <CircularSlider
+          min={0}
+          max={50}
+          value={value}
+          onChange={value => this.setState({ value })}
+        />
+        <Text>{value}</Text>
       </View>
     );
   }

@@ -2,3 +2,4 @@
 example
 .gitignore
 .github
+node_modules

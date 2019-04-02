@@ -39,8 +39,9 @@ export default class CircularSlider extends PureComponent {
     let value = this.getCurrentValueByRadian(radian)
     this.setState(({ value: curValue }) => {
       value = Math.abs(value - curValue) > 10 ? curValue : value
-      return { value }
+      return { value: Math.round(value) }
     })
+    this._fireChangeEvent('onChange');
   }
 
 
@@ -54,7 +55,7 @@ export default class CircularSlider extends PureComponent {
 
   _fireChangeEvent = event => {
     if (this.props[event]) {
-      this.props[event](this._getCurrentValue());
+      this.props[event](this.state.value);
     }
   };
 
