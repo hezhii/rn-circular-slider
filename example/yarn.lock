@@ -607,16 +607,9 @@
     pirates "^4.0.0"
     source-map-support "^0.5.9"
 
-"@babel/runtime@^7.0.0":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.4.2":
   version "7.4.2"
   resolved "http://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.4.2.tgz?cache=0&other_urls=http%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.4.2.tgz#f5ab6897320f16decd855eed70b705908a313fe8"
-  integrity sha1-9atolzIPFt7NhV7tcLcFkIoxP+g=
-  dependencies:
-    regenerator-runtime "^0.13.2"
-
-"@babel/runtime@^7.4.2":
-  version "7.4.2"
-  resolved "http://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.4.2.tgz#f5ab6897320f16decd855eed70b705908a313fe8"
   integrity sha1-9atolzIPFt7NhV7tcLcFkIoxP+g=
   dependencies:
     regenerator-runtime "^0.13.2"
@@ -5279,6 +5272,11 @@ react-is@^16.8.1, react-is@^16.8.3, react-is@^16.8.4:
   resolved "http://registry.npm.taobao.org/react-is/download/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha1-W7weLSkUHJ+9/tRWND/ivEMKahY=
 
+react-native-svg@^9.3.6:
+  version "9.3.6"
+  resolved "http://registry.npm.taobao.org/react-native-svg/download/react-native-svg-9.3.6.tgz#99361aa98aabad0d538f63e7096456cf54f48e2c"
+  integrity sha1-mTYaqYqrrQ1Tj2PnCWRWz1T0jiw=
+
 react-native@0.59.2:
   version "0.59.2"
   resolved "http://registry.npm.taobao.org/react-native/download/react-native-0.59.2.tgz#c2e2d9e185b04e54948f170841d97c24661a0fa9"
@@ -5623,6 +5621,9 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "http://registry.npm.taobao.org/rimraf/download/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-circular-slider@../:
+  version "1.0.0"
 
 rsvp@^3.3.3:
   version "3.6.2"

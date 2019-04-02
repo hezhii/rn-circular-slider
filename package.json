@@ -1,0 +1,30 @@
+{
+  "name": "rn-circular-slider",
+  "version": "1.0.0",
+  "description": "",
+  "main": "CircularSlider.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hezhii/rn-circular-slider.git"
+  },
+  "keywords": [
+    "react",
+    "native",
+    "slider",
+    "circular"
+  ],
+  "author": {
+    "name": "biu",
+    "email": "hezhou920@gmail.com",
+    "url": "https://www.whezh.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hezhii/rn-circular-slider/issues"
+  },
+  "homepage": "https://github.com/hezhii/rn-circular-slider#readme",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  }
+}

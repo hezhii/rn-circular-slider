@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "react": "16.8.3",
-    "react-native": "0.59.2"
+    "react-native": "0.59.2",
+    "react-native-svg": "^9.3.6",
+    "rn-circular-slider": "../"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",
