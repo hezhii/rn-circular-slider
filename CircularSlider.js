@@ -30,6 +30,7 @@ export default class CircularSlider extends PureComponent {
     this.state = {
       value: props.value
     }
+    this._containerRef = React.createRef()
   }
 
   _handlePanResponderMove = (e, gestureState) => {
@@ -119,12 +120,14 @@ export default class CircularSlider extends PureComponent {
     return Math.max(strokeWidth, buttonRadius * 2)
   }
 
-  _onLayout = ({ nativeEvent }) => {
-    const { radius } = this.props
-    const distance = radius + this._getExtraSize() / 2 // 基础大小为半径加上线宽
-    // 顶点的坐标
-    this.vertexX = nativeEvent.layout.x
-    this.vertexY = nativeEvent.layout.y
+  _onLayout = () => {
+    const ref = this._containerRef.current
+    if (ref) {
+      ref.measure((x, y, width, height, pageX, pageY) => {
+        this.vertexX = pageX
+        this.vertexY = pageY
+      })
+    }
   }
 
   render() {
@@ -145,7 +148,7 @@ export default class CircularSlider extends PureComponent {
     const curPoint = this.polarToCartesian(currentRadian)
 
     return (
-      <View style={{ width: svgSize, height: svgSize }} onLayout={this._onLayout}>
+      <View style={{ width: svgSize, height: svgSize }} onLayout={this._onLayout} ref={this._containerRef}>
         <Svg width={svgSize} height={svgSize}>
           <Defs>
             <LinearGradient
