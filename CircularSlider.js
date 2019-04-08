@@ -159,6 +159,7 @@ export default class CircularSlider extends PureComponent {
       buttonBorderColor,
       buttonFillColor,
       buttonStrokeWidth,
+      style,
       contentContainerStyle,
       children
     } = this.props
@@ -175,7 +176,7 @@ export default class CircularSlider extends PureComponent {
     ]
 
     return (
-      <View onLayout={this._onLayout} ref={this._containerRef} style={styles.container}>
+      <View onLayout={this._onLayout} ref={this._containerRef} style={[styles.container, style]}>
         <View style={contentStyle}>
           {children}
         </View>
