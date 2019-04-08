@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import Svg, { Path, Defs, LinearGradient, Stop, Circle } from 'react-native-svg'
-import { View, PanResponder } from 'react-native'
+import { StyleSheet, View, PanResponder } from 'react-native'
 
 export default class CircularSlider extends PureComponent {
   static defaultProps = {
@@ -11,7 +11,6 @@ export default class CircularSlider extends PureComponent {
     linearGradient: [{ stop: '0%', color: '#1890ff' }, { stop: '100%', color: '#f5222d' }], // 渐变色
     min: 0, // 最小值
     max: 100, // 最大值
-    value: 90, // 当前值
     buttonRadius: 12, // 按钮半径
     buttonColor: '#fff', // 按钮颜色
   }
@@ -28,8 +27,9 @@ export default class CircularSlider extends PureComponent {
     })
 
     this.state = {
-      value: props.value
+      value: props.value || props.min
     }
+
     this._containerRef = React.createRef()
   }
 
@@ -138,7 +138,9 @@ export default class CircularSlider extends PureComponent {
       openingRadian,
       linearGradient,
       buttonRadius,
-      buttonColor
+      buttonColor,
+      contentContainerStyle,
+      children
     } = this.props
     const svgSize = radius * 2 + this._getExtraSize()
     const startRadian = 2 * Math.PI - openingRadian // 起点弧度
@@ -147,8 +149,16 @@ export default class CircularSlider extends PureComponent {
     const currentRadian = this.getCurrentRadian() // 当前弧度
     const curPoint = this.polarToCartesian(currentRadian)
 
+    const contentStyle = [
+      styles.content,
+      contentContainerStyle
+    ]
+
     return (
-      <View style={{ width: svgSize, height: svgSize }} onLayout={this._onLayout} ref={this._containerRef}>
+      <View onLayout={this._onLayout} ref={this._containerRef} style={styles.container}>
+        <View style={contentStyle}>
+          {children}
+        </View>
         <Svg width={svgSize} height={svgSize}>
           <Defs>
             <LinearGradient
@@ -195,3 +205,17 @@ export default class CircularSlider extends PureComponent {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  content: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    right: 0
+  }
+})

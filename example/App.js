@@ -27,8 +27,10 @@ export default class App extends Component {
           max={50}
           value={value}
           onChange={value => this.setState({ value })}
-        />
-        <Text>{value}</Text>
+          contentContainerStyle={styles.contentContainerStyle}
+        >
+          <Text style={styles.value}>{value}</Text>
+        </CircularSlider>
       </View>
     );
   }
@@ -40,5 +42,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
+  },
+  contentContainerStyle: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  value: {
+    fontSize: 20
   }
 });
