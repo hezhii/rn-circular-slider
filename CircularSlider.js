@@ -12,7 +12,8 @@ export default class CircularSlider extends PureComponent {
     min: 0, // 最小值
     max: 100, // 最大值
     buttonRadius: 12, // 按钮半径
-    buttonColor: '#fff', // 按钮颜色
+    buttonBorderColor: '#fff', // 按钮边框颜色
+    buttonStrokeWidth: 1, // 按钮线宽
   }
 
   constructor(props) {
@@ -116,8 +117,8 @@ export default class CircularSlider extends PureComponent {
    * 获取除半径外额外的大小，返回线宽和按钮直径中较大的
    */
   _getExtraSize() {
-    const { strokeWidth, buttonRadius } = this.props
-    return Math.max(strokeWidth, buttonRadius * 2)
+    const { strokeWidth, buttonRadius, buttonStrokeWidth } = this.props
+    return Math.max(strokeWidth, (buttonRadius + buttonStrokeWidth) * 2)
   }
 
   _onLayout = () => {
@@ -138,7 +139,9 @@ export default class CircularSlider extends PureComponent {
       openingRadian,
       linearGradient,
       buttonRadius,
-      buttonColor,
+      buttonBorderColor,
+      buttonFillColor,
+      buttonStrokeWidth,
       contentContainerStyle,
       children
     } = this.props
@@ -196,8 +199,9 @@ export default class CircularSlider extends PureComponent {
             cx={curPoint.x}
             cy={curPoint.y}
             r={buttonRadius}
-            fill={buttonColor}
-            stroke={buttonColor}
+            fill={buttonFillColor || buttonBorderColor}
+            stroke={buttonBorderColor}
+            strokeWidth={buttonStrokeWidth}
             {...this._panResponder.panHandlers}
           />
         </Svg>

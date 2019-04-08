@@ -15,7 +15,7 @@ console.disableYellowBox = true
 
 export default class App extends Component {
   state = {
-    value: 0
+    value: 50
   }
 
   render() {
@@ -23,11 +23,18 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <CircularSlider
-          min={0}
-          max={50}
+          min={10}
+          max={80}
           value={value}
           onChange={value => this.setState({ value })}
           contentContainerStyle={styles.contentContainerStyle}
+          strokeWidth={10}
+          buttonBorderColor="#3FE3EB"
+          buttonFillColor="#fff"
+          buttonStrokeWidth={10}
+          openingRadian={Math.PI / 4}
+          buttonRadius={10}
+          linearGradient={[{ stop: '0%', color: '#3FE3EB' }, { stop: '100%', color: '#7E84ED' }]}
         >
           <Text style={styles.value}>{value}</Text>
         </CircularSlider>
