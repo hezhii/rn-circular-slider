@@ -21,6 +21,7 @@ export default class CircularSlider extends PureComponent {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => true,
       onMoveShouldSetPanResponder: () => false,
+      onPanResponderGrant: this._handlePanResponderGrant,
       onPanResponderMove: this._handlePanResponderMove,
       onPanResponderRelease: this._handlePanResponderEnd,
       onPanResponderTerminationRequest: () => false,
@@ -34,13 +35,33 @@ export default class CircularSlider extends PureComponent {
     this._containerRef = React.createRef()
   }
 
+  _handlePanResponderGrant = () => {
+    /*
+     * 记录开始滑动开始时的滑块值、弧度和坐标，用户后续值的计算
+     */
+    const { value } = this.state
+    this._moveStartValue = value
+    this._moveStartRadian = this.getRadianByValue(value)
+    this._startCartesian = this.polarToCartesian(this._moveStartRadian)
+  };
+
   _handlePanResponderMove = (e, gestureState) => {
-    const x = gestureState.moveX
-    const y = gestureState.moveY
-    const radian = this.cartesianToPolar(x - this.vertexX, y - this.vertexY)
-    let value = this.getCurrentValueByRadian(radian)
+    const { min, max, step, openingRadian } = this.props
+    let { x, y } = this._startCartesian
+    x += gestureState.dx
+    y += gestureState.dy
+    const radian = this.cartesianToPolar(x, y) // 当前弧度
+    const ratio = (this._moveStartRadian - radian) / ((Math.PI - openingRadian) * 2) // 弧度变化所占比例
+    const diff = max - min // 最大值和最小值的差
+
+    let value = this._moveStartValue + ratio * diff
+    // 处理极值
+    value = Math.max(
+      min,
+      Math.min(max, value),
+    )
     this.setState(({ value: curValue }) => {
-      value = Math.abs(value - curValue) > 10 ? curValue : value
+      value = Math.abs(value - curValue) > diff / 4 ? curValue : value // 避免直接从最小值变为最大值
       return { value: Math.round(value) }
     })
     this._fireChangeEvent('onChange');
@@ -92,25 +113,16 @@ export default class CircularSlider extends PureComponent {
    * 获取当前弧度
    */
   getCurrentRadian() {
-    const { value } = this.state
-    const { openingRadian, min, max } = this.props
-    return (Math.PI - openingRadian) * 2 * (max - value) / (max - min) + openingRadian
+    return this.getRadianByValue(this.state.value)
   }
 
   /**
-   * 根据弧度获取当前值
-   * @param {*} radian 
+   * 根据滑块的值获取弧度
+   * @param {*} value 
    */
-  getCurrentValueByRadian(radian) {
+  getRadianByValue(value) {
     const { openingRadian, min, max } = this.props
-    if (radian <= openingRadian) {
-      return max
-    }
-    const radianDiff = 2 * Math.PI - openingRadian - radian
-    if (radianDiff <= 0) {
-      return min
-    }
-    return (max - min) * radianDiff / ((Math.PI - openingRadian) * 2)
+    return (Math.PI - openingRadian) * 2 * (max - value) / (max - min) + openingRadian
   }
 
   /**
