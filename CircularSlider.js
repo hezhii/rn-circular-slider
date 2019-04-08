@@ -54,7 +54,12 @@ export default class CircularSlider extends PureComponent {
     const ratio = (this._moveStartRadian - radian) / ((Math.PI - openingRadian) * 2) // 弧度变化所占比例
     const diff = max - min // 最大值和最小值的差
 
-    let value = this._moveStartValue + ratio * diff
+    let value
+    if (step) {
+      value = this._moveStartValue + Math.round(ratio * diff / step) * step
+    } else {
+      value = this._moveStartValue + ratio * diff
+    }
     // 处理极值
     value = Math.max(
       min,

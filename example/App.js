@@ -23,6 +23,7 @@ export default class App extends Component {
     return (
       <View style={styles.container}>
         <CircularSlider
+          step={2}
           min={10}
           max={80}
           value={value}
