@@ -177,9 +177,6 @@ export default class CircularSlider extends PureComponent {
 
     return (
       <View onLayout={this._onLayout} ref={this._containerRef} style={[styles.container, style]}>
-        <View style={contentStyle}>
-          {children}
-        </View>
         <Svg width={svgSize} height={svgSize}>
           <Defs>
             <LinearGradient
@@ -223,6 +220,9 @@ export default class CircularSlider extends PureComponent {
             {...this._panResponder.panHandlers}
           />
         </Svg>
+        <View style={contentStyle} pointerEvents="box-none">
+          {children}
+        </View>
       </View>
     )
   }
