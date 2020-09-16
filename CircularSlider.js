@@ -67,12 +67,19 @@ export default class CircularSlider extends PureComponent {
     )
     this.setState(({ value: curValue }) => {
       value = Math.abs(value - curValue) > diff / 4 ? curValue : value // 避免直接从最小值变为最大值
-      return { value: Math.round(value) }
+      return { value: (step % 1 === 0) ?  Math.round(value) : this._roundNumber(value) }
     })
     this._fireChangeEvent('onChange');
   }
 
+  _roundNumber = (value) => {
+    const { step } = this.props
 
+    step || (step = 1.0);
+    const inv = 1.0 / step;
+    
+    return Math.round(value * inv) / inv;
+  }
   _handlePanResponderEnd = (e, gestureState) => {
     if (this.props.disabled) {
       return;
